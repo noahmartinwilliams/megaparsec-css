@@ -37,6 +37,8 @@ library:
   source-dirs: src
   dependencies:
   - megaparsec
+  - text
+  - bytestring
 
 tests:
   megaparsec-css-test:
