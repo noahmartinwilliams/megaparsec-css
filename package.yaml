@@ -39,6 +39,7 @@ library:
   - megaparsec
   - text
   - bytestring
+  - containers
 
 tests:
   megaparsec-css-test:
