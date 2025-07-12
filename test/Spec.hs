@@ -67,9 +67,26 @@ test04 = do
     else
         let (Left err) = result in putStrLn (errorBundlePretty err)
 
+test05 :: IO ()
+test05 = do
+    let input = "rgb(255, 0, 1)"
+        result = parse cssRGBVal "" (T.pack input)
+    if isRight result
+    then do
+        let (Right result') = result
+        let (ColorHexVal r g b _) = result'
+        if (r == 255) && (g == 0) && (b == 1)
+        then
+            putStrLn "Test 05 succeeded."
+        else
+            putStrLn ("Test 05 failed. Got: \"" ++ (show result') ++ "\".")
+    else
+        let (Left err) = result in putStrLn (errorBundlePretty err)
+
 main :: IO ()
 main = do
     test01
     test02
     test03
     test04
+    test05

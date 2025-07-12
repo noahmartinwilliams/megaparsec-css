@@ -10,6 +10,8 @@ import qualified Text.Megaparsec.Char.Lexer as L
 import Control.Monad
 import Text.Megaparsec.CSS.Types
 import Data.Text as T
+import Data.Int
+import Text.Megaparsec.CSS.Space
 
 cssColorProperty :: Parser ColorType
 cssColorProperty = do
@@ -25,6 +27,19 @@ cssColorValNamed = do
     let colors = fst (unzip allColors)
     colorName <- choice (Prelude.map chunk colors) 
     return (ColorName colorName)
+
+
+cssRGBVal :: Parser ColorVal
+cssRGBVal = do
+    void $ lexeme (string "rgb")
+    void $ lexeme (single '(')
+    r <- lexeme (some digitChar)
+    void $ lexeme (single ',')
+    g <- lexeme (some digitChar)
+    void $ lexeme (single ',')
+    b <- lexeme (some digitChar)
+    return (ColorHexVal (read r :: Int8) (read g :: Int8) (read b :: Int8) 1.0)
+
 
         
 allColors :: [(Text, Text)] 

@@ -7,7 +7,7 @@ import Text.Megaparsec
 
 type Parser = Parsec Void Text
 
-data ColorVal = ColorName Text | ColorHexVal Int8 Int8 Int8 Int8 deriving(Show, Eq)
+data ColorVal = ColorName Text | ColorHexVal Int8 Int8 Int8 Double deriving(Show, Eq)
 
 data ColorType = BGColor | FGColor deriving(Show, Eq)
 
