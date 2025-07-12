@@ -10,7 +10,7 @@ import Text.Megaparsec.CSS.Types
 test01 :: IO ()
 test01 = do
     let input = "background-color"
-        result = parse cssColorProperty "" input
+        result = parse cssColorProperty "" (T.pack input)
     if isRight result
     then do
         let (Right result') = result
@@ -25,11 +25,11 @@ test01 = do
 test02 :: IO ()
 test02 = do
     let input = "red"
-        result = parse cssColorValNamed "" input
+        result = parse cssColorValNamed "" (T.pack input)
     if isRight result
     then do
         let (Right result') = result
-        if result' == (ColorName "red")
+        if result' == (ColorName (T.pack "red"))
         then
             putStrLn "Test 02 succeeded."
         else
@@ -40,15 +40,30 @@ test02 = do
 test03 :: IO ()
 test03 = do
     let input = "background-color : red;"
-        result = parse cssColorDeclaration "" input
+        result = parse cssColorDeclaration "" (T.pack input)
     if isRight result
     then do
         let (Right result') = result
-        if result' == (ColorDeclaration BGColor (ColorName "red"))
+        if result' == (ColorDeclaration BGColor (ColorName (T.pack "red")))
         then
             putStrLn "Test 03 succeeded."
         else
             putStrLn ("Test 03 failed. Got: \"" ++ (show result') ++ "\".")
+    else
+        let (Left err) = result in putStrLn (errorBundlePretty err)
+
+test04 :: IO ()
+test04 = do
+    let input = "{ background-color : red; border-radius: 3px; }"
+        result = parse cssDeclarationBlock "" (T.pack input)
+    if isRight result
+    then do
+        let (Right result') = result
+        if result' == [ColorDeclaration BGColor (ColorName (T.pack "red")), SizeDeclaration BorderRadius (SizePx 3)]
+        then
+            putStrLn "Test 04 succeeded."
+        else
+            putStrLn ("Test 04 failed. Got: \"" ++ (show result') ++ "\".")
     else
         let (Left err) = result in putStrLn (errorBundlePretty err)
 
@@ -57,3 +72,4 @@ main = do
     test01
     test02
     test03
+    test04
