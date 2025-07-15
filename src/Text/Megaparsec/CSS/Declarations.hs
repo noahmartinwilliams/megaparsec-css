@@ -12,6 +12,7 @@ import Text.Megaparsec.CSS.Types
 import Text.Megaparsec.CSS.Colors
 import Text.Megaparsec.CSS.Space
 import Text.Megaparsec.CSS.Size
+import Text.Megaparsec.CSS.Selector
 
 cssColorDeclaration :: Parser Declaration
 cssColorDeclaration = do
@@ -32,9 +33,10 @@ cssSizeDeclaration = do
 cssDeclaration :: Parser Declaration 
 cssDeclaration = cssColorDeclaration <|> cssSizeDeclaration
 
-cssDeclarationBlock :: Parser [Declaration]
+cssDeclarationBlock :: Parser Block
 cssDeclarationBlock = do
+    selector <- lexeme (cssSelector )
     void $ lexeme (single '{')
     block <- many cssDeclaration
     void $ lexeme (single '}')
-    return block
+    return (Block selector block)

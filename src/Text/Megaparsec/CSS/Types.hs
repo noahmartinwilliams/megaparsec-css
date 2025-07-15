@@ -16,3 +16,7 @@ data Declaration = ColorDeclaration ColorType ColorVal | SizeDeclaration SizeTyp
 data Size = SizePx Int deriving(Show, Eq)
 
 data SizeType = BorderRadius deriving(Show, Eq)
+
+data Selector = UnivSelector | ElemSelector Text deriving(Show, Eq)
+
+data Block = Block Selector [Declaration] deriving(Show, Eq)

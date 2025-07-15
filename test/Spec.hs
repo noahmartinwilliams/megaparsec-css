@@ -6,6 +6,7 @@ import Data.Either
 import Text.Megaparsec.CSS.Colors
 import Text.Megaparsec.CSS.Declarations
 import Text.Megaparsec.CSS.Types
+import Text.Megaparsec.CSS.Selector
 
 test01 :: IO ()
 test01 = do
@@ -54,11 +55,11 @@ test03 = do
 
 test04 :: IO ()
 test04 = do
-    let input = "{ background-color : red; border-radius: 3px; }"
+    let input = "p { background-color : red; border-radius: 3px; }"
         result = parse cssDeclarationBlock "" (T.pack input)
     if isRight result
     then do
-        let (Right result') = result
+        let (Right (Block _ result')) = result
         if result' == [ColorDeclaration BGColor (ColorName (T.pack "red")), SizeDeclaration BorderRadius (SizePx 3)]
         then
             putStrLn "Test 04 succeeded."
@@ -83,6 +84,22 @@ test05 = do
     else
         let (Left err) = result in putStrLn (errorBundlePretty err)
 
+test06 :: IO ()
+test06 = do
+    let input = "p { background-color: blue; }"
+        result = parse cssDeclarationBlock "" (T.pack input)
+    if isRight result
+    then do
+        let (Right result') = result
+        let (Block selector _ ) = result'
+        if (ElemSelector (T.pack "p")) == selector
+        then
+            putStrLn "Test 06 succeeded."
+        else
+            putStrLn ("Test 06 failed. Got: \"" ++ (show result') ++ "\".")
+    else
+        let (Left err) = result in putStrLn (errorBundlePretty err)
+
 main :: IO ()
 main = do
     test01
@@ -90,3 +107,4 @@ main = do
     test03
     test04
     test05
+    test06
