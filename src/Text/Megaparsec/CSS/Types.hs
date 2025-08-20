@@ -20,3 +20,5 @@ data SizeType = BorderRadius deriving(Show, Eq)
 data Selector = UnivSelector | ElemSelector Text deriving(Show, Eq)
 
 data Block = Block Selector [Declaration] deriving(Show, Eq)
+
+data Doc = Doc [Block] deriving(Show, Eq)
