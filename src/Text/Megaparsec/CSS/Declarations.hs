@@ -10,6 +10,7 @@ import qualified Data.ByteString.Char8 as B
 import qualified Data.Text as T
 import Text.Megaparsec.CSS.Types
 import Text.Megaparsec.CSS.Colors
+import Text.Megaparsec.CSS.Combin
 import Text.Megaparsec.CSS.Space
 import Text.Megaparsec.CSS.Size
 import Text.Megaparsec.CSS.Selector
@@ -35,8 +36,8 @@ cssDeclaration = cssColorDeclaration <|> cssSizeDeclaration
 
 cssDeclarationBlock :: Parser Block
 cssDeclarationBlock = do
-    selector <- lexeme (cssSelector )
+    combin <- lexeme (cssCombin )
     void $ lexeme (single '{')
-    block <- many cssDeclaration
+    block <- lexeme (many cssDeclaration)
     void $ lexeme (single '}')
-    return (Block selector block)
+    return (Block combin block)

@@ -27,6 +27,7 @@ library
   exposed-modules:
       Text.Megaparsec.CSS
       Text.Megaparsec.CSS.Colors
+      Text.Megaparsec.CSS.Combin
       Text.Megaparsec.CSS.Declarations
       Text.Megaparsec.CSS.Selector
       Text.Megaparsec.CSS.Size
