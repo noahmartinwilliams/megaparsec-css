@@ -17,9 +17,10 @@ data Size = SizePx Int deriving(Show, Eq)
 
 data SizeType = BorderRadius deriving(Show, Eq)
 
-data Selector = UnivSelector | ElemSelector Text deriving(Show, Eq)
+data Selector = UnivSelector | ElemSelectorID Text | ElemSelector Text deriving(Show, Eq)
 
 data Combinator = Child | Column | Descendant | Namespace | NextSibling | SubsquentSibling deriving(Show, Eq)
+
 data Combin = CombinSel Selector | Combin Selector Combinator Selector | CombinSelectorList [Selector] deriving(Show, Eq)
 
 data Block = Block Combin [Declaration] deriving(Show, Eq)

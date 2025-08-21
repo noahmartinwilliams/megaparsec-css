@@ -116,6 +116,21 @@ test07 = do
     else
         let (Left err) = result in putStrLn (errorBundlePretty err)
 
+test08 :: IO ()
+test08 = do
+    let input = "#span { background-color: blue; }"
+        result = parse cssDeclarationBlock "" (T.pack input)
+    if isRight result
+    then do
+        let (Right result') = result
+        let (Block selector _ ) = result'
+        if (CombinSel (ElemSelectorID (T.pack "span"))) == selector
+        then
+            putStrLn "Test 08 succeeded."
+        else
+            putStrLn ("Test 08 failed. Got: \"" ++ (show result') ++ "\".")
+    else
+        let (Left err) = result in putStrLn (errorBundlePretty err)
 main :: IO ()
 main = do
     test01
@@ -125,3 +140,4 @@ main = do
     test05
     test06
     test07
+    test08
