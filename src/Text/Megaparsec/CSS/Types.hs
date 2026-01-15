@@ -5,7 +5,7 @@ import Text.Megaparsec
 
 type CSSParser = Parsec Void String
 
-data Selector = Selector CompoundSelector Combin CompoundSelector deriving(Show, Eq)
+data Selector = SelectorCombin CompoundSelector Combin CompoundSelector deriving(Show, Eq)
 
 data TypeSelector = TSName String deriving(Show, Eq)
 

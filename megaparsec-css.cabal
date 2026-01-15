@@ -26,6 +26,8 @@ source-repository head
 library
   exposed-modules:
       Text.Megaparsec.CSS.Combin
+      Text.Megaparsec.CSS.Ident
+      Text.Megaparsec.CSS.Selector
       Text.Megaparsec.CSS.Types
   other-modules:
       Paths_megaparsec_css
