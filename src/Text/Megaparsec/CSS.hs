@@ -12,3 +12,8 @@ cssRuleSets = do
     rs <- some cssRuleSet
     void $ hspace
     return rs
+
+cssDoc :: CSSParser CSSDoc
+cssDoc = do
+    rs <- cssRuleSets
+    return (CSSDoc rs)

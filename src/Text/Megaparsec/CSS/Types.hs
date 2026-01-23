@@ -32,6 +32,8 @@ data RuleSet = RuleSet [Selector] [Declaration] deriving(Show, Eq)
 
 data Declaration = ColorDeclaration ColorType ColorVal | SizeDeclaration SizeType Size deriving(Show, Eq)
 
+data CSSDoc = CSSDoc [RuleSet] deriving(Show, Eq)
+
 
 data Size = SizePx Int deriving(Show, Eq)
 
