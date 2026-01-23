@@ -1,4 +1,4 @@
-module Text.Megaparsec.CSS ( cssRuleSets, module Text.Megaparsec.CSS.Types) where
+module Text.Megaparsec.CSS ( cssDoc, module Text.Megaparsec.CSS.Types) where
 
 import Control.Monad
 import Text.Megaparsec
