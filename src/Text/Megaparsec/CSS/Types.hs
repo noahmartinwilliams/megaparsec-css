@@ -24,4 +24,9 @@ data Combin = NoCombin | Child | Period deriving(Show, Eq)
 
 data ColorType = BGColor | FGColor deriving(Show, Eq)
 
-data Declaration = ColorDeclaration ColorType ColorVal deriving(Show, Eq)
+data Declaration = ColorDeclaration ColorType ColorVal | SizeDeclaration SizeType Size deriving(Show, Eq)
+
+
+data Size = SizePx Int deriving(Show, Eq)
+
+data SizeType = BorderRadius deriving(Show, Eq)

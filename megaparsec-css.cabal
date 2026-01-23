@@ -31,6 +31,7 @@ library
       Text.Megaparsec.CSS.Declarations
       Text.Megaparsec.CSS.Ident
       Text.Megaparsec.CSS.Selector
+      Text.Megaparsec.CSS.Size
       Text.Megaparsec.CSS.Types
   other-modules:
       Paths_megaparsec_css
