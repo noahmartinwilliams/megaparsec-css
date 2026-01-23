@@ -52,17 +52,27 @@ cssCompoundSelector2 = do
 cssCompoundSelector :: CSSParser CompoundSelector
 cssCompoundSelector = (try cssCompoundSelector2 <|> try cssCompoundSelector1)
 
-cssSelector :: CSSParser (CompoundSelector, Combin)
-cssSelector = do
+cssSelectorPart :: CSSParser (CompoundSelector, Combin)
+cssSelectorPart = do
     comp1 <- cssCompoundSelector 
     void $ hspace
     comb <- cssCombin
     void $ hspace
     return (comp1, comb)
 
-cssSelectors :: CSSParser Selector
-cssSelectors = do
-    sels <- some cssSelector
-    void $ lookAhead (single '{')
+cssSelector :: CSSParser Selector
+cssSelector = do
+    sels <- some cssSelectorPart
     return (SelectorCombin sels)
 
+cssSep :: CSSParser ()
+cssSep = do
+    void $ optional hspace
+    void $ single ','
+    void $ optional hspace
+    return ()
+
+cssSelectors :: CSSParser [Selector]
+cssSelectors = do
+    sels <- cssSelector `sepBy` cssSep
+    return sels

@@ -19,4 +19,9 @@ cssCombin2 = do
     void $ lookAhead (single '{')
     return NoCombin
 
-cssCombin = (try cssCombin1 <|> try cssCombin2)
+cssCombin3 :: CSSParser Combin
+cssCombin3 = do
+    void $ lookAhead (single ',')
+    return NoCombin
+
+cssCombin = (try cssCombin1 <|> try cssCombin2 <|> try cssCombin3 )
