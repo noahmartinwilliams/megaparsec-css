@@ -23,3 +23,5 @@ data CompoundSelector = CSTypeSelector TypeSelector | CSClass (Maybe TypeSelecto
 data Combin = NoCombin | Child | Period deriving(Show, Eq)
 
 data ColorType = BGColor | FGColor deriving(Show, Eq)
+
+data Declaration = ColorDeclaration ColorType ColorVal deriving(Show, Eq)
