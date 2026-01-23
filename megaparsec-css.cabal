@@ -25,6 +25,7 @@ source-repository head
 
 library
   exposed-modules:
+      Text.Megaparsec.CSS
       Text.Megaparsec.CSS.AllColors
       Text.Megaparsec.CSS.Colors
       Text.Megaparsec.CSS.Combin
