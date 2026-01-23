@@ -6,7 +6,6 @@ import Text.Megaparsec
 
 type CSSParser = Parsec Void String
 
-data ColorVal = ColorName String Word8 Word8 Word8 deriving(Show, Eq)
 
 data Selector = SelectorCombin [(CompoundSelector, Combin)] deriving(Show, Eq)
 
@@ -22,7 +21,14 @@ data CompoundSelector = CSTypeSelector TypeSelector | CSClass (Maybe TypeSelecto
 
 data Combin = NoCombin | Child | Period deriving(Show, Eq)
 
+
+
 data ColorType = BGColor | FGColor deriving(Show, Eq)
+
+data ColorVal = ColorName String Word8 Word8 Word8 deriving(Show, Eq)
+
+
+data RuleSet = RuleSet [Selector] [Declaration] deriving(Show, Eq)
 
 data Declaration = ColorDeclaration ColorType ColorVal | SizeDeclaration SizeType Size deriving(Show, Eq)
 
