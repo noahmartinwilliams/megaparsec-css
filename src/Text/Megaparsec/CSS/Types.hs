@@ -32,7 +32,9 @@ data ColorVal = ColorName String Word8 Word8 Word8 deriving(Show, Eq)
 
 data RuleSet = RuleSet [Selector] [Declaration] deriving(Show, Eq)
 
-data Declaration = ColorDeclaration ColorType ColorVal | SizeDeclaration SizeType Size deriving(Show, Eq)
+data Visibility = Hidden deriving(Show, Eq)
+
+data Declaration = VisibilityDeclaration Visibility | ColorDeclaration ColorType ColorVal | SizeDeclaration SizeType Size deriving(Show, Eq)
 
 data CSSDoc = CSSDoc [RuleSet] deriving(Show, Eq)
 

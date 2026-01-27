@@ -33,8 +33,19 @@ cssSizeDeclaration = do
     void $ hspace
     return (SizeDeclaration st sv)
 
+cssVisibilityDeclaration :: CSSParser Declaration
+cssVisibilityDeclaration = do
+    void $ string "visibility"
+    void $ hspace
+    void $ single ':'
+    void $ hspace
+    void $ string "hidden"
+    void $ hspace
+    void $ single ';'
+    return (VisibilityDeclaration Hidden)
+
 cssDeclaration :: CSSParser Declaration
-cssDeclaration = (cssSizeDeclaration <|> cssColorDeclaration)
+cssDeclaration = (cssSizeDeclaration <|> cssColorDeclaration <|> cssVisibilityDeclaration)
 
 cssRuleSet :: CSSParser RuleSet
 cssRuleSet = do
