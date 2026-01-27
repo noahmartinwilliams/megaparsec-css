@@ -13,13 +13,15 @@ data TypeSelector = TSName String deriving(Show, Eq)
 
 data IDSelector = IDSel String deriving(Show, Eq)
 
-data ClassSelector = ClassSelSingle String deriving(Show, Eq)
+data ClassSelector = ClassSelSingle String | ClassSelPseudo PseudoClass | ClassSelIdentPseudo String PseudoClass deriving(Show, Eq)
 
 data PseudoElement = PEString String deriving(Show, Eq)
 
+data PseudoClass = PCFunctional String [Selector] | PCString String deriving(Show, Eq)
+
 data CompoundSelector = CSTypeSelector TypeSelector | CSClass (Maybe TypeSelector) [IDSelector] [ClassSelector] (Maybe PseudoElement) deriving(Show, Eq)
 
-data Combin = NoCombin | Child | Period deriving(Show, Eq)
+data Combin = NoCombin | Child | Descendant deriving(Show, Eq)
 
 
 

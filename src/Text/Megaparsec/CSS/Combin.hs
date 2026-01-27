@@ -7,12 +7,13 @@ import Text.Megaparsec.CSS.Types
 
 cssCombin1 :: CSSParser Combin
 cssCombin1 = do
-    c <- ((single '>') <|> (single '.'))
+    c <- ((single '>') <|> (single '.') <|> (single ' '))
     case c of
         '>' -> do
             void $ hspace1 
             return Child
-        '.' -> return Period
+        ' ' -> do
+            return Descendant
 
 cssCombin2 :: CSSParser Combin
 cssCombin2 = do
