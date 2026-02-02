@@ -29,6 +29,7 @@ library
       Text.Megaparsec.CSS.AllColors
       Text.Megaparsec.CSS.Colors
       Text.Megaparsec.CSS.Combin
+      Text.Megaparsec.CSS.Container
       Text.Megaparsec.CSS.Declarations
       Text.Megaparsec.CSS.Ident
       Text.Megaparsec.CSS.Selector

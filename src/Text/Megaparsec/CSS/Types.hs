@@ -23,6 +23,7 @@ data CompoundSelector = CSTypeSelector TypeSelector | CSClass (Maybe TypeSelecto
 
 data Combin = NoCombin | Child | Descendant deriving(Show, Eq)
 
+data DisplayType = DBlock | DInlineBlock | DNone | DFlex | DGrid deriving(Show, Eq)
 
 
 data ColorType = BGColor | FGColor deriving(Show, Eq)
@@ -34,11 +35,18 @@ data RuleSet = RuleSet [Selector] [Declaration] deriving(Show, Eq)
 
 data Visibility = Hidden deriving(Show, Eq)
 
-data Declaration = VisibilityDeclaration Visibility | ColorDeclaration ColorType ColorVal | SizeDeclaration SizeType Size deriving(Show, Eq)
+data Declaration = VisibilityDeclaration Visibility Bool | ColorDeclaration ColorType ColorVal Bool | SizeDeclaration SizeType Size Bool | DisplayDeclaration DisplayType Bool deriving(Show, Eq)
 
-data CSSDoc = CSSDoc [RuleSet] deriving(Show, Eq)
+data CSSDoc = CSSDocRS [RuleSet] | CSSDocC [Container] deriving(Show, Eq)
 
 
 data Size = SizePx Int deriving(Show, Eq)
 
 data SizeType = BorderRadius deriving(Show, Eq)
+
+
+data MediaType = MTAll | MTPrint | MTScreen deriving(Show, Eq)
+
+data ContainerInfo = CIMedia MediaType deriving(Show, Eq)
+
+data Container = MediaContainer ContainerInfo [RuleSet] deriving(Show, Eq)
