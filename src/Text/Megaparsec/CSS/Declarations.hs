@@ -3,7 +3,7 @@ module Text.Megaparsec.CSS.Declarations where
 import Control.Monad
 import Data.Maybe
 import Text.Megaparsec
-import Text.Megaparsec.Char
+import Text.Megaparsec.Char as C
 import Text.Megaparsec.Char.Lexer
 import Text.Megaparsec.CSS.Colors
 import Text.Megaparsec.CSS.Selector
@@ -13,45 +13,46 @@ import Text.Megaparsec.CSS.Types
 cssColorDeclaration :: CSSParser Declaration
 cssColorDeclaration = do
     ct <- cssColorType
-    void $ hspace
+    void $ C.space
     void $ single ':'
-    void $ hspace
+    void $ C.space
     cv <- cssColorValNamed 
-    void $ hspace
+    void $ C.space
     void $ single ';'
-    void $ hspace
+    void $ C.space
     return (ColorDeclaration ct cv False)
 
 cssSizeDeclaration :: CSSParser Declaration 
 cssSizeDeclaration = do
     st <- cssSizeType 
-    void $ hspace
+    void $ C.space
     void $ single ':'
-    void $ hspace
+    void $ C.space
     sv <- cssSizeVal
-    void $ hspace
+    void $ C.space
     void $ single ';'
-    void $ hspace
+    void $ C.space
     return (SizeDeclaration st sv False)
 
 cssVisibilityDeclaration :: CSSParser Declaration
 cssVisibilityDeclaration = do
     void $ string "visibility"
-    void $ hspace
+    void $ C.space
     void $ single ':'
-    void $ hspace
+    void $ C.space
     void $ string "hidden"
-    void $ hspace
+    void $ C.space
     void $ single ';'
+    void $ C.space
     return (VisibilityDeclaration Hidden False)
 
 
 cssImportant :: CSSParser ()
 cssImportant = do
-    void $ hspace
+    void $ C.space
     void $ single '!'
-    void $ hspace
     void $ string "important" 
+    void $ C.space
     return ()
 
 getDisplayType :: String -> DisplayType 
@@ -63,16 +64,17 @@ getDisplayType "grid" = DGrid
 
 cssDisplayDeclaration :: CSSParser Declaration
 cssDisplayDeclaration = do
-    void $ hspace
+    void $ C.space
     void $ string "display"
-    void $ hspace
+    void $ C.space
     void $ single ':'
-    void $ hspace
+    void $ C.space
     value <- (string "block" <|> string "inline-block" <|> string "none" <|> string "flex" <|> string "grid")
-    void $ hspace
+    void $ C.space
     isImportant <- optional cssImportant
-    void $ hspace
+    void $ C.space
     void $ single ';'
+    void $ C.space
     if isNothing isImportant
     then
         return (DisplayDeclaration (getDisplayType value) False)
@@ -80,16 +82,17 @@ cssDisplayDeclaration = do
         return (DisplayDeclaration (getDisplayType value) True)
 
 cssDeclaration :: CSSParser Declaration
-cssDeclaration = (cssSizeDeclaration <|> cssColorDeclaration <|> cssVisibilityDeclaration)
+cssDeclaration = (cssSizeDeclaration <|> cssColorDeclaration <|> cssVisibilityDeclaration <|> cssDisplayDeclaration)
 
 cssRuleSet :: CSSParser RuleSet
 cssRuleSet = do
     sels <- cssSelectors
-    void $ hspace
+    void $ C.space
     void $ single '{'
-    void $ hspace
+    void $ C.space
     block <- some cssDeclaration
-    void $ hspace
+    void $ C.space
     void $ single '}'
+    void $ C.space
     return (RuleSet sels block)
 

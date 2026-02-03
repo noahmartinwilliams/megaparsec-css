@@ -9,9 +9,9 @@ import Text.Megaparsec.CSS.Types
 
 cssRuleSets :: CSSParser [RuleSet]
 cssRuleSets = do
-    void $ hspace
+    void $ space
     rs <- some cssRuleSet
-    void $ hspace
+    void $ space
     return rs
 
 cssDocRS :: CSSParser CSSDoc

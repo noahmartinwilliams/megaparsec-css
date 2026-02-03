@@ -16,16 +16,17 @@ cssMediaType = do
 
 cssMediaContainer :: CSSParser Container
 cssMediaContainer = do
+    void $ space
     void $ string "@media"
-    void $ hspace1
+    void $ space
     mt <- cssMediaType
-    void $ hspace1
+    void $ space
     void $ single '{'
-    void $ hspace
+    void $ space
     rs <- some cssRuleSet
-    void $ hspace
+    void $ space
     void $ single '}'
-    void $ hspace
+    void $ space
     return (MediaContainer (CIMedia mt)  rs)
 
 cssContainer :: CSSParser Container
