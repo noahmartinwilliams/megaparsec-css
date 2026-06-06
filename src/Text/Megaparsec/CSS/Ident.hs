@@ -6,7 +6,7 @@ import Text.Megaparsec.CSS.Combin
 import Text.Megaparsec.CSS.Types
 
 cssIdentChar :: CSSParser Char
-cssIdentChar = (alphaNumChar <|> single '-')
+cssIdentChar = (alphaNumChar <|> single '-' <|> single '_')
 
 cssIdent  :: CSSParser String
 cssIdent = do
