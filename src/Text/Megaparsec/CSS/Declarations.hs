@@ -18,7 +18,7 @@ cssColorDeclaration = do
     void $ C.space
     cv <- cssColorValNamed 
     void $ C.space
-    void $ single ';'
+    void $ (single ';' <|> (lookAhead (single '}')))
     void $ C.space
     return (ColorDeclaration ct cv False)
 
@@ -30,7 +30,7 @@ cssSizeDeclaration = do
     void $ C.space
     sv <- cssSizeVal
     void $ C.space
-    void $ single ';'
+    void $ (single ';' <|> (lookAhead (single '}')))
     void $ C.space
     return (SizeDeclaration st sv False)
 
@@ -40,11 +40,13 @@ cssVisibilityDeclaration = do
     void $ C.space
     void $ single ':'
     void $ C.space
-    void $ string "hidden"
+    t <- (string "hidden" <|> string "visible")
     void $ C.space
-    void $ single ';'
+    void $ (single ';' <|> (lookAhead (single '}')))
     void $ C.space
-    return (VisibilityDeclaration Hidden False)
+    case t of
+        "hidden" -> return (VisibilityDeclaration Hidden False)
+        "visible" -> return (VisibilityDeclaration Visible False)
 
 
 cssImportant :: CSSParser ()
@@ -73,7 +75,7 @@ cssDisplayDeclaration = do
     void $ C.space
     isImportant <- optional cssImportant
     void $ C.space
-    void $ single ';'
+    void $ (single ';' <|> (lookAhead (single '}')))
     void $ C.space
     if isNothing isImportant
     then

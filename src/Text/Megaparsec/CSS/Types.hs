@@ -33,7 +33,7 @@ data ColorVal = ColorName String Word8 Word8 Word8 deriving(Show, Eq)
 
 data RuleSet = RuleSet [Selector] [Declaration] deriving(Show, Eq)
 
-data Visibility = Hidden deriving(Show, Eq)
+data Visibility = Hidden | Visible deriving(Show, Eq)
 
 data Declaration = VisibilityDeclaration Visibility Bool | ColorDeclaration ColorType ColorVal Bool | SizeDeclaration SizeType Size Bool | DisplayDeclaration DisplayType Bool deriving(Show, Eq)
 
