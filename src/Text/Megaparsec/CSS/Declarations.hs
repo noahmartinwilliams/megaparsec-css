@@ -83,8 +83,27 @@ cssDisplayDeclaration = do
     else
         return (DisplayDeclaration (getDisplayType value) True)
 
+cssHeightDeclaration :: CSSParser Declaration
+cssHeightDeclaration = do
+    void $ C.space
+    void $ string "height"
+    void $ C.space
+    void $ single ':'
+    void $ C.space
+    value <- cssPercent
+    void $ C.space
+    isImportant <- optional cssImportant
+    void $ C.space
+    void $ (single ';' <|> (lookAhead (single '}')))
+    void $ C.space
+    if isNothing isImportant
+    then
+        return (HeightDeclaration value False)
+    else
+        return (HeightDeclaration value True)
+    
 cssDeclaration :: CSSParser Declaration
-cssDeclaration = (cssSizeDeclaration <|> cssColorDeclaration <|> cssVisibilityDeclaration <|> cssDisplayDeclaration)
+cssDeclaration = (cssSizeDeclaration <|> cssColorDeclaration <|> cssVisibilityDeclaration <|> cssDisplayDeclaration <|> cssHeightDeclaration)
 
 cssRuleSet :: CSSParser RuleSet
 cssRuleSet = do

@@ -18,3 +18,9 @@ cssSizeType = do
     case stype of
         "border-radius" -> return BorderRadius
         _ -> error "Internal error in cssSizeType."
+
+cssPercent :: CSSParser Int
+cssPercent = do
+    n <- some (digitChar)
+    void $ single '%'
+    return (read n :: Int)

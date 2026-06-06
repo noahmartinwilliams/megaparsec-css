@@ -35,7 +35,7 @@ data RuleSet = RuleSet [Selector] [Declaration] deriving(Show, Eq)
 
 data Visibility = Hidden | Visible deriving(Show, Eq)
 
-data Declaration = VisibilityDeclaration Visibility Bool | ColorDeclaration ColorType ColorVal Bool | SizeDeclaration SizeType Size Bool | DisplayDeclaration DisplayType Bool deriving(Show, Eq)
+data Declaration = HeightDeclaration Int Bool | VisibilityDeclaration Visibility Bool | ColorDeclaration ColorType ColorVal Bool | SizeDeclaration SizeType Size Bool | DisplayDeclaration DisplayType Bool deriving(Show, Eq)
 
 data CSSDoc = CSSDocRS [RuleSet] | CSSDocC [Container] deriving(Show, Eq)
 
